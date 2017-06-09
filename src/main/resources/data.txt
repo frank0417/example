@@ -1,0 +1,1 @@
+[{"draw":1,"recordsFiltered":4,"data":[{"position":"研发","id":1,"name":"yangf","age":24,"org":"产品研发中心","work_time":1},{"position":"研发","id":2,"name":"hujy","age":24,"org":"产品研发中心","work_time":1},{"position":"研发","id":3,"name":"jhg","age":24,"org":"产品研发中心","work_time":1},{"position":"研发","id":4,"name":"wl","age":24,"org":"产品研发中心","work_time":1}],"recordsTotal":4}]
