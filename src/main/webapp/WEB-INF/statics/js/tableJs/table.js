@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#extable').dataTable({
+    var table = $('#extable').DataTable({
         "bAutoWidth": true, //自适应宽度
         "aaSorting": [[0, "asc"]],
         "lengthMenu": [10,20,30],
@@ -117,7 +117,6 @@ $(document).ready(function() {
         });
     } );
 
-    var table = $('#extable').dataTable();
     $('#edit').click( function () {
         var selectedTr = table.$('tr.selected');
         var id = selectedTr.find("td:eq(1)").text();
