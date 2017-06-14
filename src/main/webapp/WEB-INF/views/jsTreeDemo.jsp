@@ -116,7 +116,7 @@
 
   <!-- 信息删除确认 -->
   <div class="modal fade" id="deleteModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width: 300px;">
       <div class="modal-content message_align">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>

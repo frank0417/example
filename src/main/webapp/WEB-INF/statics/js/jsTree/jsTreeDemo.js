@@ -4,7 +4,11 @@ var nodeName;
 $(function(){
     //初始化树
     $('#jstree_demo_div').jstree({
+        "plugins" : [ "wholerow","types" ],
         'core' : {            //核心配置
+            "themes" : {
+                "responsive": false
+            },
             "multiple" : false, //单选
             'data': {
                 'url': '/example/getJsTree',
@@ -16,27 +20,29 @@ $(function(){
             //"themes": {"stripes": true}  //背景为条纹
         },
         "types" : {
-            "#" : {
-                "max_children" : 1,
-                "max_depth" : 4,
-                "valid_children" : ["root"]
-            },
-            "root" : {
-                "icon" : "/static/3.3.4/assets/images/tree_icon.png",
-                "valid_children" : ["default"]
-            },
+            //"#" : {
+            //    "max_children" : 1,
+            //    "max_depth" : 4,
+            //    "valid_children" : ["root"]
+            //},
+            //"root" : {
+            //    "icon" : "images/tree_icon.png",
+            //    "valid_children" : ["default"]
+            //},
+            //"file" : {
+            //    "icon" : "glyphicon glyphicon-file",
+            //    "valid_children" : []
+            //}
             "default" : {
-                "valid_children" : ["default","file"]
+                "icon" : "images/originWater.png"
             },
             "file" : {
-                "icon" : "glyphicon glyphicon-file",
-                "valid_children" : []
+                "icon" : "images/originWater.png"
             }
-        }
+        },
 //      "checkbox" : {
 //        "keep_selected_style" : false
 //      },
-//      "plugins" : [ "checkbox" ]
     });
 
     //$('#jstree_demo_div').bind('click.jstree', function(event) {
