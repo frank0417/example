@@ -15,6 +15,7 @@ public class User {
     private Integer age;
     private Integer work_time;
     private String org;
+    private Integer orgId;
     public User() {
 
     }
@@ -73,6 +74,14 @@ public class User {
 
     public void setOrg(String org) {
         this.org = org;
+    }
+
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     @Override
