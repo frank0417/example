@@ -4,6 +4,7 @@ import com.example.model.*;
 import com.example.service.UserService;
 import com.example.service.impl.OrgServiceImpl;
 import net.sf.json.JSONArray;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +64,7 @@ public class TestController {
             List<User> listAll = userService.findBySerchKey(serchKey);
 
             //查询分页之后的数据----start：数据开始位置 length：数据条数
-            List<User> list = userService.findByPagingAndSerchKey(start,length,serchKey);
+            List<User> list = userService.findByPagingAndSerchKey(start, length, serchKey);
 
             //将sex转换为男女
             for (User item:list) {
@@ -114,10 +115,14 @@ public class TestController {
     @ResponseBody
     public Map<String, Object> deleteById(Integer id,String deleList){
         try {
-            //通过id删除数据
-            String[] ids = deleList.split(",");
-            for (String item:ids) {
-                userService.deleteById(Integer.valueOf(item));
+            if(!StringUtils.isEmpty(deleList)) {
+                //通过id删除数据
+                String[] ids = deleList.split(",");
+                for (String item:ids) {
+                    userService.deleteById(Integer.valueOf(item));
+                }
+            } else {
+                userService.deleteById(id);
             }
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("state", true);
@@ -158,4 +163,46 @@ public class TestController {
 
     }
 
+    /**
+     * 查询对应部门的员工信息
+     */
+    @RequestMapping("/orgUser")
+    @ResponseBody
+    public DataVo getOrgUserInfo(Integer orgId,Integer start,Integer length,Integer draw,HttpServletRequest request) {
+        try {
+            String serchKey = new String(request.getParameter("search[value]").getBytes("iso-8859-1"), "utf-8");
+
+            //查询未分页之前全部数据
+            List<User> listAll = userService.findBySerchKeyAndOrgId(serchKey, orgId);
+
+            //查询分页之后的数据----start：数据开始位置 length：数据条数
+            List<User> list = userService.findByPagingAndSerchKeyAndOrgId(orgId,start, length, serchKey);
+
+            //将sex转换为男女
+            for (User item:list) {
+                if(item.getSex().equals("1")) {
+                    item.setSex("男");
+                } else {
+                    item.setSex("女");
+                }
+            }
+
+            //将数据转换成JSON格式
+            JSONArray array=JSONArray.fromObject(list);
+            //封装数据
+            DataVo result = new DataVo();
+            result.setDraw(draw);
+            //数据表中过滤后的总数
+            result.setRecordsFiltered(listAll.size());
+            //数据表中记录的总数
+            result.setRecordsTotal(listAll.size());
+            result.setData(array);
+
+            System.out.println("JSON数据：" + array.toString());
+            return result;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
