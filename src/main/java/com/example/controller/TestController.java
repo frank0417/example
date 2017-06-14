@@ -5,6 +5,7 @@ import com.example.service.UserService;
 import com.example.service.impl.OrgServiceImpl;
 import net.sf.json.JSONArray;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.mapping.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
 import java.util.Map;
 
@@ -135,12 +135,13 @@ public class TestController {
     }
 
     /**
-     *  获取jsTree
+     *  同步加载树获取jsTree
      */
     @RequestMapping("/getJsTree")
     @ResponseBody
     public JSONArray getJsTree(){
         try {
+            //同步加载树，一次性全部查出
             JsTreeVo treeVo = null;
             List<JsTreeVo> treeList = new ArrayList<JsTreeVo>();
             List<Org> list = orgService.findAll();
@@ -154,6 +155,63 @@ public class TestController {
                 treeVo.setId(item.getId().toString());
                 treeVo.setText(item.getOrgName());
                 treeList.add(treeVo);
+            }
+            return JSONArray.fromObject(treeList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    /**
+     *  异步加载树获取jsTree
+     */
+    @RequestMapping("/getJsTreeAsy")
+    @ResponseBody
+    public JSONArray getJsTreeAsy(String id){
+        try {
+            //异步加载树，每次查询该层节点和是否有子节点
+            JsTreeVo treeVo = null;
+            List<JsTreeVo> treeList = new ArrayList<JsTreeVo>();
+
+            if(id.equals("#")) {
+                id = "0";
+            }
+            //查出本层部门
+            List<Org> list = orgService.findByParentId(Integer.valueOf(id));
+
+            //遍历部门判断该层部门下是否存在子部门，并将相关参数参加到treeVo中
+            int index = 0;
+            for (Org item:list) {
+                treeVo = new JsTreeVo();
+                State state = new State();
+                List<Org> child = orgService.findByParentId(item.getId());
+
+                if(!child.isEmpty()) {
+                    treeVo.setChildren(true);
+                }
+
+                if(item.getParentId().equals(0)) {
+                    treeVo.setParent("#");
+                } else {
+                    treeVo.setParent(item.getParentId().toString());
+                }
+
+                //打开并选中最后一层第一个树
+                if(index == 0) {
+                    state.setOpened(true);
+                    if (child.isEmpty()) {
+                        state.setSelected(true);
+                    }
+                }
+
+                treeVo.setState(state);
+                treeVo.setId(item.getId().toString());
+                treeVo.setText(item.getOrgName());
+                treeList.add(treeVo);
+
+                index ++;
             }
             return JSONArray.fromObject(treeList);
         } catch (Exception e) {

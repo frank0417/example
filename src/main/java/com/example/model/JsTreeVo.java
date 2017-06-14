@@ -2,6 +2,8 @@ package com.example.model;
 
 import net.sf.json.JSONArray;
 
+import java.util.Map;
+
 /**
  * Created by yangfan on 2017/6/2.
  */
@@ -9,7 +11,10 @@ public class JsTreeVo {
     private String id;
     private String text;
     private String parent;
-    private JSONArray children;
+    //异步children只判断有无
+    private boolean children;
+    //节点状态
+    private State state;
 
     public void setId(String id) {
         this.id = id;
@@ -35,11 +40,19 @@ public class JsTreeVo {
         this.parent = parent;
     }
 
-    public JSONArray getChildren() {
+    public boolean isChildren() {
         return children;
     }
 
-    public void setChildren(JSONArray children) {
+    public void setChildren(boolean children) {
         this.children = children;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

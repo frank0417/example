@@ -11,7 +11,7 @@ $(function(){
             },
             "multiple" : false, //单选
             'data': {
-                'url': '/example/getJsTree',
+                'url': '/example/getJsTreeAsy',
 //          'url': '//www.jstree.com/fiddle/?lazy',
                 'data': function (node) {
                     return {'id': node.id};
@@ -40,9 +40,6 @@ $(function(){
                 "icon" : "images/originWater.png"
             }
         },
-//      "checkbox" : {
-//        "keep_selected_style" : false
-//      },
     });
 
     //$('#jstree_demo_div').bind('click.jstree', function(event) {

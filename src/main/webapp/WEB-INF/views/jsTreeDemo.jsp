@@ -46,7 +46,7 @@
     </div>
 
     <div class="col-md-9">
-      <table id="extable" class="display cell-border" cellspacing="0" width="100%">
+      <table id="extable" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
         <thead class="text-center">
         <tr>
           <th class="text-center">id</th>
