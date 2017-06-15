@@ -20,6 +20,15 @@
   <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css">
   <link href="css/style.min.css" rel="stylesheet" type="text/css">
   <link href="css/iCheck/skins/all.css" rel="stylesheet" type="text/css"/>
+  <style type="text/css">
+    input {
+      border: 1px solid #ddd;
+    }
+    select {
+      border: 1px solid #ddd;
+    }
+
+  </style>
 </head>
 <body>
   <div class="col-md-12">
@@ -40,28 +49,31 @@
   </div>
 
   <div class="">
-    <div class="col-md-3" style="border-right: 1px solid #DBDBDB;height: 500px;">
+    <div class="col-md-3" style="border-right: 1px solid #DBDBDB;height: 620px;">
       <!--jsTree -->
       <div id="jstree_demo_div" style="width: 30%;"></div>
     </div>
 
     <div class="col-md-9">
-      <table id="extable" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-        <thead class="text-center">
-        <tr>
-          <th class="text-center">id</th>
-          <th class="text-center">name</th>
-          <th class="text-center">sex</th>
-          <th class="text-center">position</th>
-          <th class="text-center">age</th>
-          <th class="text-center">work_time</th>
-          <th class="text-center">org</th>
-          <th class="text-center">operator</th>
-        </tr>
-        </thead>
-        <tbody class="text-center">
-        </tbody>
-      </table>
+      <div class="table-scrollable">
+        <table id="extable" class="table-bordered table-hover" style="border-collapse: collapse;" cellspacing="0" width="100%">
+          <thead class="text-center">
+          <tr>
+            <th class="text-center">id</th>
+            <th class="text-center">name</th>
+            <th class="text-center">sex</th>
+            <th class="text-center">position</th>
+            <th class="text-center">age</th>
+            <th class="text-center">work_time</th>
+            <th class="text-center">org</th>
+            <th class="text-center">operator</th>
+          </tr>
+          </thead>
+          <tbody class="text-center">
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 

@@ -31,6 +31,11 @@ public class TestController {
         return "my test";
     }
 
+    @RequestMapping(value = "/link")
+    public String link() {
+        return "link";
+    }
+
     @RequestMapping(value = "/index")
     public String index() {
         return "index";
