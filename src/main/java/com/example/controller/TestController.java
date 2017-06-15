@@ -36,11 +36,6 @@ public class TestController {
         return "link";
     }
 
-    @RequestMapping(value = "/index")
-    public String index() {
-        return "index";
-    }
-
     @RequestMapping(value = "/demo")
     public String demo() {
         return "demo";
@@ -49,6 +44,11 @@ public class TestController {
     @RequestMapping(value = "/jsTree")
     public String jsTree() {
         return "jsTreeDemo";
+    }
+
+    @RequestMapping(value = "/baiduMap")
+    public String baiduMap() {
+        return "baiduMap";
     }
 
 //    @RequestMapping("/getUser")
