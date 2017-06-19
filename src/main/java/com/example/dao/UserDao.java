@@ -23,8 +23,16 @@ public interface UserDao extends JpaRepository<User,Integer>,JpaSpecificationExe
     @Query(value = "select * from user where name like CONCAT('%',:searchKey,'%') order by id desc limit :start,:length", nativeQuery = true)
     public List<User> findByPagingAndSerchKey(@Param("start")int start,@Param("length")int length,@Param("searchKey")String searchKey);
 
+    //带部门分页查询
+    @Query(value = "select * from user where orgId like CONCAT(:orgId,'%') and name like CONCAT('%',:searchKey,'%') order by orgId limit :start,:length", nativeQuery = true)
+    public List<User> findByPagingAndSerchKeyAndOrgId(@Param("orgId")int orgId,@Param("start")int start,@Param("length")int length,@Param("searchKey")String searchKey);
+
     //关键字查询
     @Query(value = "select * from user where name like CONCAT('%',:searchKey,'%')", nativeQuery = true)
     public List<User> findBySerchKey(@Param("searchKey")String searchKey);
+
+    //关键字和部门id查询
+    @Query(value = "select * from user where orgId like CONCAT(:orgId,'%') and name like CONCAT('%',:searchKey,'%') order by orgId", nativeQuery = true)
+    public List<User> findBySerchKeyAndOrgId(@Param("searchKey")String searchKey,@Param("orgId")int orgId);
 
 }

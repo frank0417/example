@@ -37,12 +37,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByPagingAndSerchKey(int start,int length,String serchKey) {
-        return userDao.findByPagingAndSerchKey(start,length,serchKey);
+        return userDao.findByPagingAndSerchKey(start, length, serchKey);
+    }
+
+    @Override
+    public List<User> findByPagingAndSerchKeyAndOrgId(int orgId,int start,int length,String serchKey) {
+        return userDao.findByPagingAndSerchKeyAndOrgId(orgId, start, length, serchKey);
     }
 
     @Override
     public List<User> findBySerchKey(String serchKey) {
         return userDao.findBySerchKey(serchKey);
+    }
+
+    @Override
+    public List<User> findBySerchKeyAndOrgId(String serchKey,int orgId) {
+        return userDao.findBySerchKeyAndOrgId(serchKey,orgId);
     }
 
     /**

@@ -13,5 +13,7 @@ public interface UserService {
     List<User> findAll();
     int deleteById(int id);
     List<User> findByPagingAndSerchKey(int start,int length,String serchKey);
+    List<User> findByPagingAndSerchKeyAndOrgId(int orgId,int start,int length,String serchKey);
     List<User> findBySerchKey(String serchKey);
+    List<User> findBySerchKeyAndOrgId(String serchKey,int orgId);
 }

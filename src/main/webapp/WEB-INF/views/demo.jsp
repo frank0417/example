@@ -10,6 +10,7 @@
   <%--<script type="text/javascript" src="js/tableJs/app.js"></script>--%>
   <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css">
   <link href="css/mertronic/style-metronic.css" rel="stylesheet" type="text/css"/>
   <link href="css/mertronic/style.css" rel="stylesheet" type="text/css"/>
   <link href="css/iCheck/skins/all.css" rel="stylesheet" type="text/css"/>

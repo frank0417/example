@@ -10,105 +10,132 @@
 <head>
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/jsTree/jstree.min.js"></script>
+  <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jsTree/jsTreeDemo.js"></script>
+  <script type="text/javascript" src="js/icheck.js"></script>
+
+  <link href="css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
   <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <%--<script type="text/javascript" src="js/jsTree/jsTreeDemo.js"></script>--%>
+  <link href="css/bootstrap.min.css.map" rel="stylesheet" type="text/css">
   <link href="css/style.min.css" rel="stylesheet" type="text/css">
+  <link href="css/iCheck/skins/all.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-  <%--<div id="buttons">--%>
-    <%--<button id="add" class="btn btn-info">添加</button>--%>
-    <%--<button id="edit" class="btn btn-primary">编辑</button>--%>
-    <%--<button id="delete" class="btn btn-danger">删除</button>--%>
-  <%--</div>--%>
-  <div id="jstree_demo_div" style="width: 40%;"></div>
+  <div class="col-md-12">
+    <ul class="page-breadcrumb breadcrumb" style="height: 50px">
+      <li style="top: 12px;position: absolute;font-size: 18px;">部门员工管理</li>
+      <li class="btn-group" style="right: 15px;position: absolute;" >
+        <button onclick="initAddUser()" class="btn btn-info">添加员工</button>
+        <%--<button id="edit" class="btn btn-primary" data-toggle="modal" data-target="#myModalForOrg">编辑</button>--%>
+        <%--<button id="delete" class="btn btn-danger">删除</button>--%>
+      </li>
+    </ul>
+    <%--<span style="margin-left:15px" >部门管理</span>--%>
+    <%--<div style="margin-left: 300px;display:inline;">--%>
+      <%--<button id="add" class="btn btn-info" data-toggle="modal" data-target="#myModal">添加</button>--%>
+      <%--<button id="edit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">编辑</button>--%>
+      <%--<button id="delete" class="btn btn-danger">删除</button>--%>
+    <%--</div>--%>
+  </div>
+
+  <div class="">
+    <div class="col-md-3" style="border-right: 1px solid #DBDBDB;height: 500px;">
+      <!--jsTree -->
+      <div id="jstree_demo_div" style="width: 30%;"></div>
+    </div>
+
+    <div class="col-md-9">
+      <table id="extable" class="display cell-border" cellspacing="0" width="100%">
+        <thead class="text-center">
+        <tr>
+          <th class="text-center">id</th>
+          <th class="text-center">name</th>
+          <th class="text-center">sex</th>
+          <th class="text-center">position</th>
+          <th class="text-center">age</th>
+          <th class="text-center">work_time</th>
+          <th class="text-center">org</th>
+          <th class="text-center">operator</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal员工 -->
+  <div class="modal fade" id="myModalForUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span--%>
+          <%--aria-hidden="true">&times;</span></button>--%>
+          <h4 class="modal-title" id="myModalLabel">新增</h4>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="userId" placeholder="id">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="userName" placeholder="姓名">
+          </div>
+          <div class="form-group">
+            <input type="radio" class="radio" id="boy" name="sex" value="1" style="display: inline-block;"/>
+            <span>帅哥</span>
+
+            <input type="radio" class="radio" id="girl" name="sex" value="0" style="display: inline-block;"/>
+            <span>靓妹</span>
+
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="position" placeholder="职位">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="age" placeholder="年龄">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="work_time" placeholder="工龄">
+          </div>
+          <%--<div class="form-group">--%>
+          <%--<input type="text" class="form-control" id="org" placeholder="部门">--%>
+          <%--</div>--%>
+          <div class="form-group">
+            <input type="text" disabled="disabled" class="form-control" id="org">
+            <input type="hidden" id="orgId" value="">
+          </div>
+        </div>
+        <div class="modal-footer" style="margin-top: 15px;">
+          <button type="button" class="btn btn-info" id="addOrEditUser">保存数据</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 信息删除确认 -->
+  <div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content message_align">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">提示信息</h4>
+        </div>
+        <div class="modal-body">
+          <p>您确认要删除吗？</p>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" id="deleteId"/>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <a  onclick="deleteUser()" class="btn btn-primary" data-dismiss="modal">确定</a>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
   <script type="text/javascript">
-    //ajax 请求数据
-    //  $('#jstree_demo_div').jstree({
-    //    'core' : {
-    //      'data': {
-    //        'url': '/example/getJsTree',
-    //        'data': function (node) {
-    //          return {'id': node.id};
-    //        }
-    //      },
-    //      "themes": {"stripes": true},  //背景为条纹
-    //    }
-    //  });
-
-    var ay_mssys =
-            [
-              {
-                "id": "1",
-                "text": "民事案由(2008版)",
-                "state": {
-                  "opened": true,          //展示第一个层级下面的node
-                  "disabled": true         //该根节点不可点击
-                },
-                "children":
-                        [
-                          {
-                            "id": "2",
-                            "text": "人格权纠纷",
-                            "children":
-                                    [
-                                      {
-                                        "id": "3",
-                                        "text": "人格权纠纷",
-                                        "children": [
-                                          {
-                                            "id": "4",
-                                            "text": "生命权、健康权、身体权纠纷",
-                                            "children":
-                                                    [
-                                                      {
-                                                        "id": "5",
-                                                        "text": "道路交通事故人身损害赔偿纠纷"
-                                                      }
-                                                    ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                          }
-                        ]
-              }
-            ]
-    $('#jstree_demo_div').jstree({
-      'core' : {
-//        'data': ay_mssys,
-        'data': {
-          'url': '/example/getJsTree',
-//          'url': '//www.jstree.com/fiddle/?lazy',
-          'data': function (node) {
-            return {'id': node.id};
-          }
-        },
-        "themes": {"stripes": true}  //背景为条纹
-      },
-      "types" : {
-        "#" : {
-          "max_children" : 1,
-          "max_depth" : 4,
-          "valid_children" : ["root"]
-        },
-        "root" : {
-          "icon" : "/static/3.3.4/assets/images/tree_icon.png",
-          "valid_children" : ["default"]
-        },
-        "default" : {
-          "valid_children" : ["default","file"]
-        },
-        "file" : {
-          "icon" : "glyphicon glyphicon-file",
-          "valid_children" : []
-        }
-      }
-//      "checkbox" : {
-//        "keep_selected_style" : false
-//      },
-//      "plugins" : [ "checkbox" ]
-    });
-
 
   </script>
 </body>

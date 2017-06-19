@@ -9,7 +9,8 @@ public class JsTreeVo {
     private String id;
     private String text;
     private String parent;
-    private JSONArray children;
+    private State state;
+    private boolean children;
 
     public void setId(String id) {
         this.id = id;
@@ -35,11 +36,19 @@ public class JsTreeVo {
         this.parent = parent;
     }
 
-    public JSONArray getChildren() {
+    public boolean isChildren() {
         return children;
     }
 
-    public void setChildren(JSONArray children) {
+    public void setChildren(boolean children) {
         this.children = children;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }
