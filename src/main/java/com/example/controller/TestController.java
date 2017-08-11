@@ -52,6 +52,16 @@ public class TestController {
         return "metronicDemo";
     }
 
+    @RequestMapping(value = "/charts")
+    public String charts() {
+        return "charts";
+    }
+
+    @RequestMapping(value = "/chartDemo")
+    public String chartDemo() {
+        return "chartDemo";
+    }
+
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> login(HttpServletRequest request){
